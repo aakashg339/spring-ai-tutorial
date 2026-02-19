@@ -16,8 +16,19 @@ public class ImageService {
     }
 
     public ImageResponse generateImage(String prompt) {
+        // ImageResponse imageResponse = openAiImageModel.call(
+        //     new ImagePrompt(prompt)
+        // );
+
         ImageResponse imageResponse = openAiImageModel.call(
-            new ImagePrompt(prompt)
+            new ImagePrompt(prompt,
+                OpenAiImageOptions.builder()
+                    .model("dall-e-2")
+                    // .quality("hd")
+                    .N(3)
+                    .height(512)
+                    .width(512).build()
+            )
         );
 
         return imageResponse;

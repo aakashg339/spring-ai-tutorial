@@ -1,6 +1,7 @@
 package com.ai.SpringAiDemo;
 
 import java.io.IOException;
+import java.util.List;
 
 import org.springframework.ai.image.ImageResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,11 +30,23 @@ public class GenAIController {
         return chatService.getResponseOptions(prompt);
     }
 
+    // @GetMapping("generate-image")
+    // public void generateImages(HttpServletResponse response, @RequestParam String prompt) throws IOException {
+    //     ImageResponse imageResponse = imageService.generateImage(prompt);
+    //     String imageUrl = imageResponse.getResult().getOutput().getUrl();
+    //     response.sendRedirect(imageUrl);
+    // }
+
     @GetMapping("generate-image")
-    public void generateImages(HttpServletResponse response, @RequestParam String prompt) throws IOException {
+    public List<String> generateImages(HttpServletResponse response, @RequestParam String prompt) throws IOException {
         ImageResponse imageResponse = imageService.generateImage(prompt);
-        String imageUrl = imageResponse.getResult().getOutput().getUrl();
-        response.sendRedirect(imageUrl);
+        
+        // Streams to get urls from ImageResponse
+        List<String> imageUrls = imageResponse.getResults().stream()
+            .map(result -> result.getOutput().getUrl())
+            .toList();
+
+        return imageUrls;
     }
 
 }
