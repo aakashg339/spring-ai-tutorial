@@ -20,6 +20,9 @@ public class GenAIController {
     @Autowired
     ImageService imageService;
 
+    @Autowired
+    RecipeService recipeService;
+
     @GetMapping("ask-ai")
     public String getResponse(@RequestParam String prompt) {
         return chatService.getResponse(prompt);
@@ -54,4 +57,10 @@ public class GenAIController {
         return imageUrls;
     }
 
+    @GetMapping("recipe-creator")
+    public String recipeCreator(@RequestParam String ingredients, 
+                                    @RequestParam(defaultValue = "any") String cuisine, 
+                                    @RequestParam(defaultValue = "") String dietaryRestrictions) {
+        return recipeService.createRecipe(ingredients, cuisine, dietaryRestrictions);
+    }
 }
