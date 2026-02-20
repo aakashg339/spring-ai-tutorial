@@ -2,6 +2,9 @@ import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
+import ImageGenerator from './components/ImageGenerator';
+import Chat from './components/Chat';
+import RecipeGenerator from './components/RecipeGenerator';
 
 function App() {
   const [activeTab, setActiveTab] = useState('image-generator');
@@ -26,9 +29,9 @@ function App() {
       </button>
 
       <div>
-        {activeTab === 'image-generator' && <h2>Image Generator</h2>}
-        {activeTab === 'chat' && <h2>Chat</h2>}
-        {activeTab === 'recipe-generator' && <h2>Recipe Generator</h2>}
+        {activeTab === 'image-generator' && <ImageGenerator />}
+        {activeTab === 'chat' && <Chat />}
+        {activeTab === 'recipe-generator' && <RecipeGenerator />}
       </div>
     </div>
   )
