@@ -7,21 +7,29 @@ function App() {
   const [activeTab, setActiveTab] = useState('image-generator');
 
   const handleTabChange = (tab) => {
-    alert(tab);
     setActiveTab(tab);
   };
 
   return (
     <div className='App'>
-      <button onClick={() => handleTabChange('image-generator')}>
+      <button className={activeTab === 'image-generator' ? 'active' : ''}
+      onClick={() => handleTabChange('image-generator')}>
         Image Generator
       </button>
-      <button onClick={() => handleTabChange('chat')}>
+      <button className={activeTab === 'chat' ? 'active' : ''}
+      onClick={() => handleTabChange('chat')}>
         Chat
       </button>
-      <button onClick={() => handleTabChange('recipe-generator')}>
+      <button className={activeTab === 'recipe-generator' ? 'active' : ''}
+      onClick={() => handleTabChange('recipe-generator')}>
         Recipe Generator
       </button>
+
+      <div>
+        {activeTab === 'image-generator' && <h2>Image Generator</h2>}
+        {activeTab === 'chat' && <h2>Chat</h2>}
+        {activeTab === 'recipe-generator' && <h2>Recipe Generator</h2>}
+      </div>
     </div>
   )
 }
