@@ -23,15 +23,13 @@ import org.springframework.web.multipart.MultipartFile;
 @RequestMapping("api/transcribe")
 public class TranscriptionController {
 
-    private final OpenAiAudioTranscriptionModel transcriptionModel ;
+    private final OpenAiAudioTranscriptionModel transcriptionModel;
 
-    public TranscriptionController(@Value("${spring.ai.openai.api-key}") String apiKey) {
-        OpenAiAudioApi openAiAudioApi = new OpenAiAudioApi(apiKey));
-
-        this.transcriptionModel = new OpenAiAudioTranscriptionModel(openAiAudioApi);
+    public TranscriptionController(OpenAiAudioTranscriptionModel transcriptionModel) {
+        this.transcriptionModel = transcriptionModel;
     }
 
-    @PostMapping("")
+    @PostMapping
     public ResponseEntity<String> transcribeAudio(@RequestParam("file") MultipartFile file) throws IOException {
         File tempFile = File.createTempFile("audio", ".wav");
         file.transferTo(tempFile);
